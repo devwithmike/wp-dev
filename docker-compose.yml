@@ -1,17 +1,4 @@
 services:
-  nginx:
-    container_name: ${CONTAINER_NAME}-nginx
-    image: nginx:1.15.12-alpine
-    restart: unless-stopped
-    env_file: .env
-    ports:
-      - "8080:80"
-    volumes:
-      - ./nginx:/etc/nginx/conf.d:rw
-      - wordpress:/var/www/html
-    networks:
-      - internal
-
   database:
     container_name: ${CONTAINER_NAME}-database
     image: mysql:8.0
@@ -29,7 +16,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - dbdata:/var/lib/mysql
+      - db:/var/lib/mysql
     networks:
       - internal
 
@@ -53,9 +40,10 @@ services:
   wordpress:
     depends_on:
       - database
-      - nginx
     container_name: ${CONTAINER_NAME}-wordpress
-    image: wordpress:6.6.1-fpm-alpine
+    image: wordpress:latest
+    ports:
+      - "8888:80"
     restart: unless-stopped
     env_file: .env
     environment:
@@ -70,7 +58,7 @@ services:
       - internal
 
 volumes:
-  dbdata:
+  db:
   wordpress:
 
 networks:
