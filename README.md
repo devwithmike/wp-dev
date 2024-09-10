@@ -28,9 +28,3 @@ To run this project, you will need to add the following environment variables to
 `PMA_USER`
 
 `PMA_PASSWORD`
-
-
-## Acknowledgements
-
- - [Docker Setup for Local WordPress Development](https://www.youtube.com/watch?v=GG2k-La5t3o)
-
